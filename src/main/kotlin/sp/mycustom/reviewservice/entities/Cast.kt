@@ -1,6 +1,6 @@
 package sp.mycustom.reviewservice.entities
 
-data class Cast (
-    val hero : String,
-    val heroin : String
+data class Cast(
+    val hero: String,
+    val heroin: String
 )

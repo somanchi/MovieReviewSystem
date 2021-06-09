@@ -6,6 +6,6 @@ import reactor.core.publisher.Mono
 import sp.mycustom.reviewservice.entities.Movie
 
 @Repository
-interface  MovieRepository : ReactiveCrudRepository<Movie,String> {
-     fun findByMovieName(movieName : String) : Mono<Movie>
+interface MovieRepository : ReactiveCrudRepository<Movie, String> {
+    fun findByMovieName(movieName: String): Mono<Movie>
 }

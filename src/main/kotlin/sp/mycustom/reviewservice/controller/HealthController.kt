@@ -18,6 +18,6 @@ class HealthController {
     @GetMapping("/health")
     fun healthController(): ResponseEntity<String> {
         log.info { "inside health check" }
-        return ResponseEntity("server is running ",HttpStatus.OK)
+        return ResponseEntity("server is running ", HttpStatus.OK)
     }
 }

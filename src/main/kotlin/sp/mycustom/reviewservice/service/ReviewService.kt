@@ -29,11 +29,10 @@ class ReviewService {
             movieName = reviewDTO.movieName,
             ratting = reviewDTO.ratting
         )
-       return  reviewRepository.save(review)
+        return reviewRepository.save(review)
     }
 
-
-    fun getReviews(): Flux<Review> {
-        return reviewRepository.findAll()
+    fun getReviews(movieName: String): Flux<Review> {
+        return reviewRepository.findByMovieName(movieName)
     }
 }

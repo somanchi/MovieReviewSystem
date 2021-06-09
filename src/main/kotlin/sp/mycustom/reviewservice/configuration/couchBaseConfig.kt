@@ -6,16 +6,15 @@ import org.springframework.data.couchbase.repository.config.EnableReactiveCouchb
 import sp.mycustom.reviewservice.repository.MovieRepository
 import sp.mycustom.reviewservice.repository.ReviewRepository
 
-
 @Configuration
-@EnableReactiveCouchbaseRepositories(basePackageClasses = [MovieRepository::class,ReviewRepository::class])
-class couchBaseConfig : AbstractCouchbaseConfiguration(){
+@EnableReactiveCouchbaseRepositories(basePackageClasses = [MovieRepository::class, ReviewRepository::class])
+class couchBaseConfig : AbstractCouchbaseConfiguration() {
     override fun getConnectionString(): String {
         return "localhost"
     }
 
     override fun getUserName(): String {
-       return "Administrator"
+        return "Administrator"
     }
 
     override fun getPassword(): String {
@@ -25,5 +24,4 @@ class couchBaseConfig : AbstractCouchbaseConfiguration(){
     override fun getBucketName(): String {
         return "default"
     }
-
 }

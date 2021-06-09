@@ -18,7 +18,6 @@ class MovieService {
     @Autowired
     lateinit var movieRepository: MovieRepository
 
-
     fun addMovie(movieDTO: MovieDTO): Mono<Movie> {
         val movie = movieRepository.findByMovieName(movieDTO.movieName)
         if (movie.toString().isEmpty()) {
@@ -26,23 +25,24 @@ class MovieService {
                 movieName = movieDTO.movieName,
                 storyDescription = movieDTO.storyDescription,
                 releaseDate = movieDTO.releaseDate,
-                cast = null,posterURL = null , tillerURL = null
+                cast = null, posterURL = null, tillerURL = null
             )
             return movieRepository.save(m)
         } else {
             movie.block()?.id?.let {
-                return movieRepository.save(Movie(
-                    id = it, movieName = movieDTO.movieName,
-                    storyDescription = movieDTO.storyDescription, releaseDate = movieDTO.releaseDate,
-                    cast = null,posterURL = null , tillerURL = null)
+                return movieRepository.save(
+                    Movie(
+                        id = it, movieName = movieDTO.movieName,
+                        storyDescription = movieDTO.storyDescription, releaseDate = movieDTO.releaseDate,
+                        cast = null, posterURL = null, tillerURL = null
+                    )
                 )
             }
         }
         return Mono.empty()
     }
 
-    fun  getAllMovies(): Flux<Movie> {
+    fun getAllMovies(): Flux<Movie> {
         return movieRepository.findAll()
     }
-
 }
