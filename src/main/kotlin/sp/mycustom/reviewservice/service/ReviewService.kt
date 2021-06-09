@@ -9,8 +9,9 @@ import reactor.core.publisher.Mono
 import sp.mycustom.reviewservice.dto.ReviewDTO
 import sp.mycustom.reviewservice.entities.Review
 import sp.mycustom.reviewservice.repository.ReviewRepository
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
+import sp.mycustom.reviewservice.utils.DATE_FORMAT
+import sp.mycustom.reviewservice.validation.withReviewValidation
+import java.time.OffsetDateTime
 
 @Service
 class ReviewService {
@@ -20,16 +21,21 @@ class ReviewService {
     @Autowired
     lateinit var reviewRepository: ReviewRepository
 
+    @Autowired
+    lateinit var movieService: MovieService
+
     fun addReview(reviewDTO: ReviewDTO): Mono<Review> {
-        log.info { "Adding Review for movie" }
-        val review = Review(
-            review = reviewDTO.review,
-            postedDate = LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME).toString(),
-            lastUpdatedAt = LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME).toString(),
-            movieName = reviewDTO.movieName,
-            ratting = reviewDTO.ratting
-        )
-        return reviewRepository.save(review)
+        withReviewValidation(movieService.getMovieByName(reviewDTO.movieName)) {
+            log.info { "Adding Review for movie" }
+            val review = Review(
+                review = reviewDTO.review,
+                postedDate = OffsetDateTime.now().withNano(0).format(DATE_FORMAT),
+                lastUpdatedAt = OffsetDateTime.now().withNano(0).format(DATE_FORMAT),
+                movieName = reviewDTO.movieName,
+                ratting = reviewDTO.ratting
+            )
+            return reviewRepository.save(review)
+        }
     }
 
     fun getReviews(movieName: String): Flux<Review> {

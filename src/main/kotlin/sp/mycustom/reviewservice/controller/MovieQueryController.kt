@@ -14,7 +14,7 @@ import sp.mycustom.reviewservice.utils.API_VERSION
 
 @RestController
 @RequestMapping(API_VERSION)
-class MovieQueryController  {
+class MovieQueryController {
 
     @Autowired
     lateinit var movieService: MovieService

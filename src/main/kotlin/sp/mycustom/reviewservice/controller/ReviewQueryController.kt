@@ -15,11 +15,10 @@ import sp.mycustom.reviewservice.utils.API_VERSION
 
 @RestController
 @RequestMapping(API_VERSION)
-class ReviewQueryController  {
+class ReviewQueryController {
 
     @Autowired
     lateinit var reviewService: ReviewService
-
 
     @Operation(
         summary = "get all reviews",
@@ -35,7 +34,7 @@ class ReviewQueryController  {
     @Tag(name = "Reviews", description = "APIs to Mutate & Query reviews")
     @GetMapping("/reviews/{movieName}")
     fun getReview(
-        @PathVariable movieName : String
+        @PathVariable movieName: String
     ): Flux<Review> {
         return reviewService.getReviews(movieName)
     }

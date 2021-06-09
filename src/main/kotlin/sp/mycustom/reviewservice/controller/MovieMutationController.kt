@@ -16,7 +16,7 @@ import sp.mycustom.reviewservice.utils.API_VERSION
 
 @RestController
 @RequestMapping(API_VERSION)
-class MovieMutationController  {
+class MovieMutationController {
 
     @Autowired
     lateinit var movieService: MovieService
