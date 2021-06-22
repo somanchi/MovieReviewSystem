@@ -8,4 +8,3 @@ inline fun <T> withReviewValidation(movie: Mono<Movie>, function: () -> T): T {
     isMovieReleased(movie.block())
     return function()
 }
-

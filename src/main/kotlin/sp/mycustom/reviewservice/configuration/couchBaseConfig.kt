@@ -1,5 +1,6 @@
 package sp.mycustom.reviewservice.configuration
 
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.couchbase.config.AbstractCouchbaseConfiguration
 import org.springframework.data.couchbase.repository.config.EnableReactiveCouchbaseRepositories
@@ -9,19 +10,32 @@ import sp.mycustom.reviewservice.repository.ReviewRepository
 @Configuration
 @EnableReactiveCouchbaseRepositories(basePackageClasses = [MovieRepository::class, ReviewRepository::class])
 class couchBaseConfig : AbstractCouchbaseConfiguration() {
+
+    @Value("\${couchbase.hostname}")
+    lateinit var connection: String
+
+    @Value("\${couchbase.username}")
+    lateinit var username: String
+
+    @Value("\${couchbase.password}")
+    lateinit var pass: String
+
+    @Value("\${couchbase.bucketname}")
+    lateinit var bucketname: String
+
     override fun getConnectionString(): String {
-        return "localhost"
+        return connection
     }
 
     override fun getUserName(): String {
-        return "Administrator"
+        return username
     }
 
     override fun getPassword(): String {
-        return "Somanchi@98"
+        return pass
     }
 
     override fun getBucketName(): String {
-        return "default"
+        return bucketname
     }
 }

@@ -9,7 +9,6 @@ import sp.mycustom.reviewservice.entities.Movie
 import sp.mycustom.reviewservice.repository.MovieRepository
 import sp.mycustom.reviewservice.utils.DATE_FORMAT
 import java.time.OffsetDateTime
-import java.time.format.DateTimeFormatter
 
 @Service
 class MovieService {
@@ -39,7 +38,6 @@ class MovieService {
                 )
             }
         }
-        return Mono.empty()
     }
 
     fun getAllMovies(): Flux<Movie> {

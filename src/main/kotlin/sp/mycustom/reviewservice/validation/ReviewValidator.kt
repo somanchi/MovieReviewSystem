@@ -16,7 +16,8 @@ fun isMovieReleased(movie: Movie?) {
         if (compareValues(
                 OffsetDateTime.now().format(DateTimeFormatter.ISO_OFFSET_DATE_TIME),
                 it.releaseDate
-            ) < 0) {
+            ) < 0
+        ) {
             throw ReviewsRunTimeException(errorMessage = "Movie Not Released")
         }
     }

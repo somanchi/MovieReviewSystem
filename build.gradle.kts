@@ -18,13 +18,11 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("com.expediagroup:graphql-kotlin-spring-server:4.1.1")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
-    implementation("org.springdoc:springdoc-openapi-ui:1.5.2")
     implementation("org.springframework.boot:spring-boot-starter-data-couchbase-reactive:2.5.0")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
     implementation("io.github.microutils:kotlin-logging:1.7.7")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
