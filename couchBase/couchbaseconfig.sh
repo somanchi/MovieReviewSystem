@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 set -m
 
 /entrypoint.sh couchbase-server &
@@ -19,7 +21,7 @@ sleep 15
 
 # shellcheck disable=SC2006
 # shellcheck disable=SC2140
-curl -v http://127.0.0.1:8093/query/service -d "statement= CREATE INDEX `reviews` ON `review`(`_class`) WHERE (`_class` = "sp.mycustom.reviewservice.entities.Review")"
+curl -v http://127.0.0.1:8091/query/service -d "statement= CREATE INDEX reviews ON default(_class) WHERE (_class = 'sp.mycustom.reviewservice.entities.Review')"
 # shellcheck disable=SC2140
-curl -v http://127.0.0.1:8093/query/service -d "statement= CREATE INDEX `movies` ON `movie`(`_class`) WHERE (`_class` = "sp.mycustom.reviewservice.entities.Movie")"
+curl -v http://127.0.0.1:8091/query/service -d "statement= CREATE INDEX movies ON default(_class) WHERE (_class = 'sp.mycustom.reviewservice.entities.Movie')"
 fg 1

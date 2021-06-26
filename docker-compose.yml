@@ -3,10 +3,10 @@ version: '2'
 services:
   couchbase:
     image: couchbase-custom
+    networks:
+      - persistentStore
     ports:
-      - 8091:8091
-      - 8092:8092
-      - 8093:8093
+      - "8091:8091"
     environment:
       - COUCHBASE_ADMINISTRATOR_USERNAME=Administrator
       - COUCHBASE_ADMINISTRATOR_PASSWORD=password
@@ -15,11 +15,15 @@ services:
 
   spring-boot:
     image: spring-boot-custom
+    networks:
+      - persistentStore
     ports:
       - 8080:8080
     environment:
-      - COUCHBASE_HOST_NAME=couchbase
+      - COUCHBASE_HOSTNAME=couchbase
       - COUCHBASE_BUCKET=default
       - COUCHBASE_PASSWORD=password
       - COUCHBASE_USERNAME=Administrator
     restart: always
+networks:
+  persistentStore:

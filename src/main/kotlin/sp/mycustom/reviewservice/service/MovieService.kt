@@ -7,8 +7,6 @@ import reactor.core.publisher.Mono
 import sp.mycustom.reviewservice.dto.MovieDTO
 import sp.mycustom.reviewservice.entities.Movie
 import sp.mycustom.reviewservice.repository.MovieRepository
-import sp.mycustom.reviewservice.utils.DATE_FORMAT
-import java.time.OffsetDateTime
 
 @Service
 class MovieService {
@@ -17,27 +15,14 @@ class MovieService {
     lateinit var movieRepository: MovieRepository
 
     fun addMovie(movieDTO: MovieDTO): Mono<Movie> {
-        val movie = movieRepository.findByMovieName(movieDTO.movieName).block()
-        if (movie == null) {
-            val m = Movie(
+        return movieRepository.save(
+            Movie(
                 movieName = movieDTO.movieName,
                 storyDescription = movieDTO.storyDescription,
-                releaseDate = OffsetDateTime.parse(movieDTO.releaseDate).format(DATE_FORMAT),
+                releaseDate = movieDTO.releaseDate,
                 cast = null, posterURL = null, tillerURL = null
             )
-            return movieRepository.save(m)
-        } else {
-            movie.let {
-                return movieRepository.save(
-                    Movie(
-                        id = it.id, movieName = movieDTO.movieName,
-                        storyDescription = movieDTO.storyDescription,
-                        releaseDate = movieDTO.releaseDate,
-                        cast = null, posterURL = null, tillerURL = null
-                    )
-                )
-            }
-        }
+        )
     }
 
     fun getAllMovies(): Flux<Movie> {
