@@ -10,6 +10,7 @@ import sp.mycustom.reviewservice.dto.ReviewDTO
 import sp.mycustom.reviewservice.entities.Review
 import sp.mycustom.reviewservice.exception.DataFetchException
 import sp.mycustom.reviewservice.exception.DataInsertionException
+import sp.mycustom.reviewservice.exception.MovieNotFoundException
 import sp.mycustom.reviewservice.repository.ReviewRepository
 import sp.mycustom.reviewservice.validation.withReviewValidation
 import java.time.OffsetDateTime
@@ -31,9 +32,10 @@ class ReviewService {
     fun addReview(reviewDTO: ReviewDTO): Mono<Review> {
         try {
             val movieId = UUID.nameUUIDFromBytes(reviewDTO.movieName.toLowerCase().toByteArray()).toString()
-            val movie = movieService.getMovieById(movieId)
+            val movie = movieService.getMovieById(movieId).block()
+                ?: throw MovieNotFoundException(errorMessage = "Movie ${reviewDTO.movieName} is not found")
             log.info { "Adding Review for movie" }
-            withReviewValidation(movie.block()) {
+            withReviewValidation(movie) {
                 val review = Review(
                     review = reviewDTO.review,
                     postedDate = OffsetDateTime.now()
