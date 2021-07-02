@@ -18,7 +18,7 @@ class couchBaseConfig : AbstractCouchbaseConfiguration() {
     lateinit var username: String
 
     @Value("\${couchbase.password}")
-    lateinit var pass: String
+    lateinit var bucketPassword: String
 
     @Value("\${couchbase.bucketname}")
     lateinit var bucketname: String
@@ -32,7 +32,7 @@ class couchBaseConfig : AbstractCouchbaseConfiguration() {
     }
 
     override fun getPassword(): String {
-        return pass
+        return bucketPassword
     }
 
     override fun getBucketName(): String {
