@@ -17,14 +17,15 @@ class CustomExceptionHandler {
     @ExceptionHandler(
         ReviewsRunTimeException::class,
         DataFetchException::class,
-        DataInsertionException::class)
+        DataInsertionException::class
+    )
     fun exceptionHandler(e: ReviewsRunTimeException): ResponseEntity<String> {
         return ResponseEntity(e.errorMessage, e.status)
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MovieNotFoundException::class)
-    fun clientSideExceptions(e : MovieNotFoundException): ResponseEntity<String> {
+    fun clientSideExceptions(e: MovieNotFoundException): ResponseEntity<String> {
         return ResponseEntity(e.errorMessage, e.status)
     }
 }

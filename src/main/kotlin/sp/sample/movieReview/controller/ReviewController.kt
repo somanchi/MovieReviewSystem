@@ -29,10 +29,12 @@ class ReviewController {
     @Operation(
         summary = "Add New Review",
         description = "A json of newly added review will be returned",
-        responses = [ApiResponse(
-            responseCode = "200",
-            description = "Returns added review details"
-        )]
+        responses = [
+            ApiResponse(
+                responseCode = "200",
+                description = "Returns added review details"
+            )
+        ]
     )
     @PostMapping("/insert/review/")
     fun addNewReview(@Valid @RequestBody review: ReviewDTO): Mono<Review> {
@@ -42,10 +44,12 @@ class ReviewController {
     @Operation(
         summary = "Get Reviews",
         description = "A List of reviews will be returned for the given movie name",
-        responses = [ApiResponse(
-            responseCode = "200",
-            description = "Returns List of reviews"
-        )]
+        responses = [
+            ApiResponse(
+                responseCode = "200",
+                description = "Returns List of reviews"
+            )
+        ]
     )
     @GetMapping("/reviews/{movieName}")
     fun getReview(@PathVariable movieName: String): Flux<Review> {

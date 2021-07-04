@@ -28,10 +28,12 @@ class MovieController {
     @Operation(
         summary = "Add New Movie",
         description = "A json of newly added movie will be returned",
-        responses = [ApiResponse(
-            responseCode = "200",
-            description = "Returns added movie details"
-        )]
+        responses = [
+            ApiResponse(
+                responseCode = "200",
+                description = "Returns added movie details"
+            )
+        ]
     )
     @PostMapping("/insert/movie/")
     fun addNewMovie(@Valid @RequestBody movie: MovieDTO): Mono<Movie> {
@@ -41,10 +43,12 @@ class MovieController {
     @Operation(
         summary = "Get All movies available",
         description = "A json of movies will be returned",
-        responses = [ApiResponse(
-            responseCode = "200",
-            description = "Returns movies details"
-        )]
+        responses = [
+            ApiResponse(
+                responseCode = "200",
+                description = "Returns movies details"
+            )
+        ]
     )
     @GetMapping("/movies")
     fun getMovies(): Flux<Movie> {
