@@ -1,5 +1,7 @@
 package sp.sample.movieReview.controller
 
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.responses.ApiResponse
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.GetMapping
@@ -23,11 +25,27 @@ class MovieController {
     @Autowired
     lateinit var movieService: MovieService
 
+    @Operation(
+        summary = "Add New Movie",
+        description = "A json of newly added movie will be returned",
+        responses = [ApiResponse(
+            responseCode = "200",
+            description = "Returns added movie details"
+        )]
+    )
     @PostMapping("/insert/movie/")
     fun addNewMovie(@Valid @RequestBody movie: MovieDTO): Mono<Movie> {
         return movieService.addMovie(movie)
     }
 
+    @Operation(
+        summary = "Get All movies available",
+        description = "A json of movies will be returned",
+        responses = [ApiResponse(
+            responseCode = "200",
+            description = "Returns movies details"
+        )]
+    )
     @GetMapping("/movies")
     fun getMovies(): Flux<Movie> {
         return movieService.getAllMovies()
