@@ -6,7 +6,7 @@ import java.time.Duration
 import java.time.OffsetDateTime
 import java.time.ZoneOffset
 
-inline fun <T> withReviewValidation(movie: Movie, function: () -> T): T {
+inline fun <T> withValidation(movie: Movie, function: () -> T): T {
     isMovieReleased(movie)
     return function()
 }
@@ -14,7 +14,6 @@ inline fun <T> withReviewValidation(movie: Movie, function: () -> T): T {
 fun isMovieReleased(movie: Movie) {
     val date1 = OffsetDateTime.parse(movie.releaseDate).withOffsetSameInstant(ZoneOffset.UTC)
     val date2 = OffsetDateTime.now().withNano(0).withOffsetSameInstant(ZoneOffset.UTC)
-    if ((Duration.between(date1, date2).toDays()) <= 0L) {
+    if (compareValues(date1, date2) > 0)
         throw MovieNotReleasedException(errorMessage = "movie ${movie.movieName} is not released")
-    }
 }

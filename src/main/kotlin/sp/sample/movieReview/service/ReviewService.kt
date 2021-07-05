@@ -12,7 +12,7 @@ import sp.sample.movieReview.exception.DataFetchException
 import sp.sample.movieReview.exception.DataInsertionException
 import sp.sample.movieReview.exception.MovieNotFoundException
 import sp.sample.movieReview.repository.ReviewRepository
-import sp.sample.movieReview.validation.withReviewValidation
+import sp.sample.movieReview.validation.withValidation
 import java.time.OffsetDateTime
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
@@ -35,7 +35,7 @@ class ReviewService {
             val movie = movieService.getMovieById(movieId).block()
                 ?: throw MovieNotFoundException(errorMessage = "Movie ${reviewDTO.movieName} is not found")
             log.info { "Adding Review for movie" }
-            withReviewValidation(movie) {
+            withValidation(movie) {
                 val review = Review(
                     review = reviewDTO.review,
                     postedDate = OffsetDateTime.now()
