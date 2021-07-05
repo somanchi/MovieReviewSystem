@@ -9,7 +9,7 @@ import sp.sample.movieReview.utils.API_VERSION
 @Configuration
 @OpenAPIDefinition(
     info = Info(
-        title = "Movie Reviews",
+        title = "Movie Review System",
         version = API_VERSION,
         description = "This application gives ratting and reviews to the movies"
     ),
